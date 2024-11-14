@@ -2,6 +2,8 @@ package me.timpixel.fivelifes;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.logging.Level;
+
 public class LifesAutoSave extends BukkitRunnable {
 
     private final LifeBase lifeBase;
@@ -13,6 +15,6 @@ public class LifesAutoSave extends BukkitRunnable {
     @Override
     public void run() {
         lifeBase.save();
-        System.out.println("AUTO-SAVE: saved lifes");
+        FiveLifes.log(Level.INFO, "AUTO-SAVE: saved lifes");
     }
 }

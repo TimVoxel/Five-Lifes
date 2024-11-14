@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
 
 public class LifeBase {
 
@@ -87,7 +88,7 @@ public class LifeBase {
                 {
                     boolean isDeleted = file.delete();
                     if (!isDeleted)
-                        System.out.println("Failed to delete lifes save file");
+                        FiveLifes.log(Level.SEVERE, "Failed to delete lifes save file");
                 }
 
                 FileWriter writer = new FileWriter(file);
@@ -99,7 +100,7 @@ public class LifeBase {
                 writer.close();
             }
             catch (IOException e) {
-                System.out.println("Couldn't create save file for lifes");
+                FiveLifes.log(Level.SEVERE, "Couldn't create save file for lifes");
             }
         }).start();
     }
@@ -113,7 +114,7 @@ public class LifeBase {
 
                 if (!saveFile.exists())
                 {
-                    System.out.println("Nothing to load, save file does not exist");
+                    FiveLifes.log( Level.INFO, "Nothing to load, save file does not exist");
                     return;
                 }
 
@@ -122,9 +123,13 @@ public class LifeBase {
 
                 while (scanner.hasNextLine()) {
 
-                    String[] fullLine = scanner.nextLine().split(" ");
-                    String id = fullLine[0];
-                    int lifeValue = Integer.parseInt(fullLine[1]);
+                    String fullLine = scanner.nextLine();
+                    if (fullLine == null || fullLine.isEmpty())
+                        break;
+
+                    String[] components = fullLine.split(" ");
+                    String id = components[0];
+                    int lifeValue = Integer.parseInt(components[1]);
                     lifeCount.put(UUID.fromString(id), lifeValue);
                 }
 
@@ -134,7 +139,7 @@ public class LifeBase {
                 announceLoading();
             }
             catch (IOException e) {
-                System.out.println("Couldn't create save file for lifes");
+                FiveLifes.log(Level.SEVERE, "Couldn't create save file for lifes");
             }
         }).start();
     }

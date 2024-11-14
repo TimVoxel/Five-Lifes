@@ -12,6 +12,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class LifeManager implements LifeBaseListener {
 
@@ -46,6 +47,14 @@ public class LifeManager implements LifeBaseListener {
             lifeTeams[i] = scoreboard.registerNewTeam(life.getIdentifier());
             lifeTeams[i].color(life.getColor());
             lifeTeams[i].displayName(life.getDisplayName());
+
+            if (i == 0)
+                lifeTeams[i].suffix(Component.text(" ☠").color(life.getColor()));
+            else {
+                String lifeCount = i >= 5 ? "+5" : "" + i;
+                lifeTeams[i].suffix(Component.text(" " + lifeCount).color(NamedTextColor.WHITE).append(Component.text("❤").color(life.getColor())));
+            }
+
         }
     }
 
@@ -56,7 +65,7 @@ public class LifeManager implements LifeBaseListener {
 
         Team team = lifeTeams[value];
         if (team == null)
-            System.out.println("Team of index " + value + " is null");
+            FiveLifes.log(Level.SEVERE, "Team of index " + value + " is null");
         else {
             team.addPlayer(player);
             if (value == 0)
@@ -82,10 +91,12 @@ public class LifeManager implements LifeBaseListener {
         for (UUID id : lifeBase.registeredPlayers())
         {
             OfflinePlayer player = Bukkit.getOfflinePlayer(id);
-            System.out.println(player);
-            System.out.println(player.getName());
             int value = lifeBase.get(id);
             lifeTeams[value].addPlayer(player);
         }
+    }
+
+    public Team getTeamOfLife(int life) {
+        return lifeTeams[life];
     }
 }

@@ -12,3 +12,7 @@ commands:
     usage: /<command>
     permission: life.admin
     description: Manages life numbers of players
+  session:
+    usage: /<command>
+    permission: life.admin
+    description: Manages sessions
