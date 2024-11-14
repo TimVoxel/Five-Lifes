@@ -8,6 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FiveLifes extends JavaPlugin {
 
+    private LifeBase lifeBase;
+    private LifesAutoSave autoSave;
+
     @Override
     public void onEnable() {
 
@@ -15,19 +18,29 @@ public final class FiveLifes extends JavaPlugin {
         config.options().copyDefaults(true);
         config.addDefault("maxLifeCount", 5);
         config.addDefault("saveFileLocation", getDataFolder().getPath());
+        config.addDefault("autoSaveFrequencyMinutes", 5);
         saveConfig();
 
         int maxLifeCount = config.getInt("maxLifeCount");
         String saveFileLocation = config.getString("saveFileLocation");
+        int autoSaveFrequency = config.getInt("autoSaveFrequencyMinutes") * 60 * 20;
 
-        LifeBase lifeBase = new LifeBase(saveFileLocation, maxLifeCount);
+        lifeBase = new LifeBase(saveFileLocation, maxLifeCount);
         LifeManager lifeManager = new LifeManager(lifeBase, maxLifeCount);
 
         lifeBase.load();
+        autoSave = new LifesAutoSave(lifeBase);
+        autoSave.runTaskTimer(this, autoSaveFrequency, autoSaveFrequency);
 
         registerCommand("life", new LifeCommand(lifeBase));
-
         System.out.println("Five Lifes plugin loaded successfully");
+    }
+
+    @Override
+    public void onDisable() {
+        lifeBase.save();
+        if (autoSave != null)
+            autoSave.cancel();
     }
 
     private void registerCommand(String name, TabExecutor executor) {
