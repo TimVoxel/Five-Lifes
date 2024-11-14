@@ -1,5 +1,6 @@
 package me.timpixel.fivelifes;
 
+import me.timpixel.fivelifes.commands.GiveLifeCommand;
 import me.timpixel.fivelifes.commands.LifeCommand;
 import me.timpixel.fivelifes.commands.SessionCommand;
 import me.timpixel.fivelifes.listeners.ChatListener;
@@ -30,12 +31,14 @@ public final class FiveLifes extends JavaPlugin {
         config.addDefault("saveFileLocation", getDataFolder().getPath());
         config.addDefault("autoSaveFrequencyMinutes", 5);
         config.addDefault("sessionLengthMinutes", 180);
+        config.addDefault("giveLifeEnabled", true);
         saveConfig();
 
         int maxLifeCount = config.getInt("maxLifeCount");
         String saveFileLocation = config.getString("saveFileLocation");
         int autoSaveFrequency = config.getInt("autoSaveFrequencyMinutes") * 60 * 20;
         int sessionLengthMinutes = config.getInt("sessionLengthMinutes");
+        boolean isGiveLifeEnabled = config.getBoolean("giveLifeEnabled");
 
         lifeBase = new LifeBase(saveFileLocation, maxLifeCount);
         LifeManager lifeManager = new LifeManager(lifeBase, maxLifeCount);
@@ -50,6 +53,7 @@ public final class FiveLifes extends JavaPlugin {
 
         registerCommand("life", new LifeCommand(lifeBase));
         registerCommand("session", new SessionCommand(sessionLengthMinutes));
+        registerCommand("give_life", new GiveLifeCommand(isGiveLifeEnabled, lifeBase));
         log(Level.INFO, "Five Lifes plugin loaded successfully");
     }
 

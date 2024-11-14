@@ -16,3 +16,6 @@ commands:
     usage: /<command>
     permission: life.admin
     description: Manages sessions
+  give_life:
+    usage: /<command>
+    description: Enables one to give their life to a fellow player
