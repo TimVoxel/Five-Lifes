@@ -1,0 +1,7 @@
+name: Five-Lifes
+version: '${project.version}'
+main: me.timpixel.fivelifes.FiveLifes
+api-version: '1.21'
+load: STARTUP
+authors: [TimPixel]
+description: Plugin for Five lifes smp

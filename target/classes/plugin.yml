@@ -1,0 +1,7 @@
+name: Five-Lifes
+version: '1.0-SNAPSHOT'
+main: me.timpixel.fivelifes.FiveLifes
+api-version: '1.21'
+load: STARTUP
+authors: [TimPixel]
+description: Plugin for Five lifes smp
