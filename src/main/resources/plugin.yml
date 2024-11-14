@@ -5,3 +5,11 @@ api-version: '1.21'
 load: STARTUP
 authors: [TimPixel]
 description: Plugin for Five lifes smp
+permissions:
+  life.admin:
+    description: Admin permission for this plugin
+commands:
+  life:
+    usage: /<command>
+    permission: life.admin
+    description: Manages life numbers of players

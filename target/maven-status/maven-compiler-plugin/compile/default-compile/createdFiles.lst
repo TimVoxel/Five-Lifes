@@ -1,1 +1,13 @@
+me\timpixel\fivelifes\commands\SaveLifesCommand.class
+me\timpixel\fivelifes\commands\RemoveLifeCommand.class
+me\timpixel\fivelifes\commands\SubCommand.class
+me\timpixel\fivelifes\commands\RootCommand.class
+me\timpixel\fivelifes\LifeBase.class
+me\timpixel\fivelifes\commands\SetLifeCommand.class
+me\timpixel\fivelifes\commands\LifeCommand.class
+me\timpixel\fivelifes\Life.class
+me\timpixel\fivelifes\commands\ReloadLifesCommand.class
+me\timpixel\fivelifes\LifeBaseListener.class
+me\timpixel\fivelifes\LifeManager.class
+me\timpixel\fivelifes\commands\AddLifeCommand.class
 me\timpixel\fivelifes\FiveLifes.class
