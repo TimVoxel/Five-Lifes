@@ -4,9 +4,11 @@ me\timpixel\fivelifes\commands\SubCommand.class
 me\timpixel\fivelifes\commands\RootCommand.class
 me\timpixel\fivelifes\LifeBase.class
 me\timpixel\fivelifes\commands\SetLifeCommand.class
+me\timpixel\fivelifes\listeners\JoinListener.class
 me\timpixel\fivelifes\commands\LifeCommand.class
 me\timpixel\fivelifes\LifesAutoSave.class
 me\timpixel\fivelifes\Life.class
+me\timpixel\fivelifes\listeners\DeathListener.class
 me\timpixel\fivelifes\commands\ReloadLifesCommand.class
 me\timpixel\fivelifes\LifeBaseListener.class
 me\timpixel\fivelifes\LifeManager.class

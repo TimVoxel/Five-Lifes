@@ -1,6 +1,8 @@
 package me.timpixel.fivelifes;
 
 import me.timpixel.fivelifes.commands.LifeCommand;
+import me.timpixel.fivelifes.listeners.DeathListener;
+import me.timpixel.fivelifes.listeners.JoinListener;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,6 +33,9 @@ public final class FiveLifes extends JavaPlugin {
         lifeBase.load();
         autoSave = new LifesAutoSave(lifeBase);
         autoSave.runTaskTimer(this, autoSaveFrequency, autoSaveFrequency);
+
+        getServer().getPluginManager().registerEvents(new DeathListener(lifeBase), this);
+        getServer().getPluginManager().registerEvents(new JoinListener(lifeBase), this);
 
         registerCommand("life", new LifeCommand(lifeBase));
         System.out.println("Five Lifes plugin loaded successfully");

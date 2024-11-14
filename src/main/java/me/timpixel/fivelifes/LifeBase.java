@@ -33,11 +33,11 @@ public class LifeBase {
         {
             lifeCount.put(playerID, maxLifeCount);
             value = maxLifeCount;
+            save();
         }
         else
             value = lifeCount.get(playerID);
 
-        save();
         announceUpdate(playerID, value, value);
     }
 
