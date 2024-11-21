@@ -24,7 +24,6 @@ public class LifeManager implements LifeBaseListener {
         this.lifeBase = lifeBase;
         this.maxLifeCount = maxLifeCount;
         this.lifeTeams = new Team[maxLifeCount + 1];
-        this.lifeBase.listeners.add(this);
         setupTeams();
     }
 

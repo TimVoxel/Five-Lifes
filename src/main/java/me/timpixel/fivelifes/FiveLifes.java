@@ -10,7 +10,6 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.logging.Level;
 
@@ -18,7 +17,16 @@ public final class FiveLifes extends JavaPlugin {
 
     private static FiveLifes instance;
     private LifeBase lifeBase;
+    private SessionManager sessionManager;
     private LifesAutoSave autoSave;
+
+    public static LifeBase getLifeBase() {
+        return instance.lifeBase;
+    }
+
+    public static SessionManager getSessionManager() {
+        return instance.sessionManager;
+    }
 
     @Override
     public void onEnable() {
@@ -41,7 +49,13 @@ public final class FiveLifes extends JavaPlugin {
         boolean isGiveLifeEnabled = config.getBoolean("giveLifeEnabled");
 
         lifeBase = new LifeBase(saveFileLocation, maxLifeCount);
+        sessionManager = new SessionManager(this, sessionLengthMinutes);
+
         LifeManager lifeManager = new LifeManager(lifeBase, maxLifeCount);
+        lifeBase.listeners.add(lifeManager);
+
+        VisualSessionDisplay visualSessionDisplay = new VisualSessionDisplay();
+        sessionManager.listeners.add(visualSessionDisplay);
 
         lifeBase.load();
         autoSave = new LifesAutoSave(lifeBase);
@@ -52,7 +66,7 @@ public final class FiveLifes extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatListener(lifeBase, lifeManager), this);
 
         registerCommand("life", new LifeCommand(lifeBase));
-        registerCommand("session", new SessionCommand(sessionLengthMinutes));
+        registerCommand("session", new SessionCommand(sessionManager));
         registerCommand("give_life", new GiveLifeCommand(isGiveLifeEnabled, lifeBase));
         log(Level.INFO, "Five Lifes plugin loaded successfully");
     }
@@ -71,10 +85,6 @@ public final class FiveLifes extends JavaPlugin {
             command.setExecutor(executor);
             command.setTabCompleter(executor);
         }
-    }
-
-    public static void runTaskLater(BukkitRunnable runnable, int delay) {
-        runnable.runTaskLater(instance, delay);
     }
 
     public static void log(Level level, String message) {

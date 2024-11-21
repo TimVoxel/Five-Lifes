@@ -9,6 +9,7 @@ me\timpixel\fivelifes\listeners\ChatListener.class
 me\timpixel\fivelifes\LifeBase.class
 me\timpixel\fivelifes\commands\SetLifeCommand.class
 me\timpixel\fivelifes\listeners\JoinListener.class
+me\timpixel\fivelifes\commands\GiveLifeCommand.class
 me\timpixel\fivelifes\commands\LifeCommand.class
 me\timpixel\fivelifes\LifesAutoSave.class
 me\timpixel\fivelifes\Life.class
